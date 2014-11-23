@@ -1,5 +1,7 @@
 body {
   padding-top: 20px;
+  background-image: url('../bubblesFixedWide.jpg');
+  background-attachment: fixed;
 }
 
 .footer {

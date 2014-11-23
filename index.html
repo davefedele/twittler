@@ -28,7 +28,6 @@
   </head>
 
   <body>
-
     <script>
 
     var tweet;
@@ -48,8 +47,14 @@
 
           while(index <= (streams.home.length - 2)){
             tweet = streams.home[index];
-            $tweet = $('<div></div>');
-            $tweet.text(index + ' @' + tweet.user + ': ' + tweet.message + " - " + moment(tweet.created_at).fromNow());
+            $tweet = $('<div>' +
+                          '<b id="user"> ' + '@' + tweet.user + ' </b>' +
+                          '<span>' +
+                            '<a id="tweet-time">' + moment(tweet.created_at).fromNow() + '</a>' +
+                          '</span>' +
+                        '</div>' +
+                        '<div id="tweet-message">' + tweet.message + ' </div>');
+
             $tweet.prependTo($(".tweet-div"));
             index += 1;
           }
@@ -63,8 +68,8 @@
       $(document).ready(function() {
         showTweets();
         setInterval(function() {
-          tweetCount = $(".tweet-div").children().length;
-          if(streams.home.length > tweetCount){
+          tweetCount = $(".tweet-div").children().find("#tweet-time").length;
+          if((streams.home.length -1) > tweetCount){
             var numberNewTweets = streams.home.length - tweetCount;
             $("#update-tweets").text(numberNewTweets + " new tweets");
           }
@@ -91,7 +96,7 @@
       <!-- Jumbotron -->
       <div class="jumbotron">
         <h1 class="latest-tweet col-lg-height">The Latest Tweet</h1>
-        <p class="latest-tweet-time-and-date">@author - 20 minutes ago (11/21/14)</p>
+        <p class="latest-tweet-time-and-date"></p>
         <p><a class="btn btn-lg btn-success" id="update-tweets" href="#" role="button">Show Latest Tweets</a></p>
       </div>
 

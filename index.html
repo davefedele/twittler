@@ -35,32 +35,40 @@
     var $tweet;
 
     function showTweets(){
-        if (streams.home.length !== 0) {
 
+        if (streams.home.length !== 0) {
+          $(".tweet-div").children().remove();
+          $("#update-tweets").text("no new tweets");
 
           var latestTweet = streams.home[streams.home.length-1];
           $(".latest-tweet").text('@' + latestTweet.user + ': ' + latestTweet.message);
-          $(".latest-tweet-time-and-date").text(moment(latestTweet.created_at).fromNow() + ' - ' + moment(latestTweet.created_at).format("hh:mm:ss a on MM/DD/YY"));
-          streams.home.pop();
+          $(".latest-tweet-time-and-date").text(moment(latestTweet.created_at).fromNow());
 
-          var index = streams.home.length - 1;
+          var index = 0;
 
-          while(index >= 0){
+          while(index <= (streams.home.length - 2)){
             tweet = streams.home[index];
             $tweet = $('<div></div>');
-            $tweet.text('@' + tweet.user + ': ' + tweet.message + " - " + moment(tweet.created_at).fromNow() + " - " + moment(tweet.created_at).format("hh:mm:ss a on MM/DD/YY"));
+            $tweet.text(index + ' @' + tweet.user + ': ' + tweet.message + " - " + moment(tweet.created_at).fromNow());
             $tweet.prependTo($(".tweet-div"));
-            streams.home.pop();
-            index -= 1;
+            index += 1;
           }
         }
       };
 
-      $(document).ready(function() {
-        setInterval(function() {
+      $(document).on("click", "#update-tweets", function() {
           showTweets();
+        });
 
-        }, 3000);
+      $(document).ready(function() {
+        showTweets();
+        setInterval(function() {
+          tweetCount = $(".tweet-div").children().length;
+          if(streams.home.length > tweetCount){
+            var numberNewTweets = streams.home.length - tweetCount;
+            $("#update-tweets").text(numberNewTweets + " new tweets");
+          }
+        }, 3500);
       });
 
     </script>
@@ -82,7 +90,7 @@
 
       <!-- Jumbotron -->
       <div class="jumbotron">
-        <h1 class="latest-tweet">The Latest Tweet</h1>
+        <h1 class="latest-tweet col-lg-height">The Latest Tweet</h1>
         <p class="latest-tweet-time-and-date">@author - 20 minutes ago (11/21/14)</p>
         <p><a class="btn btn-lg btn-success" id="update-tweets" href="#" role="button">Show Latest Tweets</a></p>
       </div>

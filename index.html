@@ -47,15 +47,18 @@
 
           while(index <= (streams.home.length - 2)){
             tweet = streams.home[index];
-            $tweet = $('<div>' +
-                          '<b id="user"> ' + '@' + tweet.user + ' </b>' +
+            $tweet = $('<div class="tweet">' +
+                          '<b class="tweet-user"> ' + '@' + tweet.user + ' </b>' +
                           '<span>' +
-                            '<a id="tweet-time">' + moment(tweet.created_at).fromNow() + '</a>' +
+                            '<a class="tweet-time">' + moment(tweet.created_at).fromNow() + '</a>' +
                           '</span>' +
-                        '</div>' +
-                        '<div id="tweet-message">' + tweet.message + ' </div>');
 
-            $tweet.prependTo($(".tweet-div"));
+                        '<div class="tweet-message">' + tweet.message + ' </div>' +
+                        '</div>');
+            $tweetSpacer = $('<div class="tweet-spacer"></div>');
+            $tweetSpacer.prependTo($(".tweet-div"));
+            $tweet.hide().prependTo($(".tweet-div")).slideDown(500);
+
             index += 1;
           }
         }
@@ -83,12 +86,11 @@
         <h3 class="text-muted">Twittler</h3>
         <div role="navigation">
           <ul class="nav nav-justified">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#">Projects</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Downloads</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="#">What</a></li>
+            <li><a href="#">are</a></li>
+            <li class="active"><a href="#">you</a></li>
+            <li><a href="#">saying</a></li>
+            <li><a href="#">?</a></li>
           </ul>
         </div>
       </div>
@@ -100,7 +102,7 @@
         <p><a class="btn btn-lg btn-success" id="update-tweets" href="#" role="button">Show Latest Tweets</a></p>
       </div>
 
-      <!-- Example row of columns -->
+      <!-- Tweet div -->
       <div class="row">
         <div class="tweet-div">
         </div>

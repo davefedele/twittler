@@ -12,13 +12,31 @@ body {
 }
 
 /* Main marketing message and sign up button */
+
+.fix-top{
+  width: 43%;
+  position: fixed;
+  overflow: scroll;
+  z-index: 100;
+}
+
 .jumbotron {
   text-align: center;
   background-color: transparent;
+  overflow: scroll;
+  position: fixed;
+  z-index: 150;
+  width: 43%;
+  padding-top: 100px;
 }
+
 .jumbotron .btn {
   padding: 14px 24px;
   font-size: 21px;
+}
+
+.tweet-div{
+  padding-top: 400px;
 }
 
 .tweet{

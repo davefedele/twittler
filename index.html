@@ -65,13 +65,15 @@
       };
 
       $(document).on("click", "#update-tweets", function() {
-          showTweets();
+          if($("#update-tweets").text() !== "no new tweets"){
+            showTweets();
+          }
         });
 
       $(document).ready(function() {
         showTweets();
         setInterval(function() {
-          tweetCount = $(".tweet-div").children().find("#tweet-time").length;
+          var tweetCount = $(".tweet").length;
           if((streams.home.length -1) > tweetCount){
             var numberNewTweets = streams.home.length - tweetCount;
             $("#update-tweets").text(numberNewTweets + " new tweets");

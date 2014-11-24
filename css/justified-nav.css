@@ -44,6 +44,8 @@ body {
 
 .tweet-message{
   font-size: 18px;
+  padding-top: 2px;
+  padding-bottom: 2px;
 }
 
 /* Customize the nav-justified links to be fill the entire space of the .navbar */

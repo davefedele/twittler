@@ -48,9 +48,9 @@
           while(index <= (streams.home.length - 2)){
             tweet = streams.home[index];
             $tweet = $('<div class="tweet">' +
-                          '<b class="tweet-user"> ' + '@' + tweet.user + ' </b>' +
+                          '<a class="tweet-user" href="#">' + '@' + tweet.user+ '</a>' +
                           '<span>' +
-                            '<a class="tweet-time">' + moment(tweet.created_at).fromNow() + '</a>' +
+                            '<a class="tweet-time"> &nbsp;' + moment(tweet.created_at).fromNow() + '</a>' +
                           '</span>' +
 
                         '<div class="tweet-message">' + tweet.message + ' </div>' +

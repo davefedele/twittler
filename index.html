@@ -32,6 +32,7 @@
 
     var tweet;
     var $tweet;
+    var tweetCount;
 
     function showTweets(){
 
@@ -62,6 +63,36 @@
             index += 1;
           }
         }
+        tweetCount = $(".tweet").length;
+      };
+
+      function showUser(clickedUser) {
+
+        var userTweets = streams.users[clickedUser];
+
+        $(".tweet-div").children().remove();
+
+        var latestTweet = userTweets[userTweets.length-1];
+        $(".latest-tweet").text('@' + latestTweet.user + ': ' + latestTweet.message);
+        $(".latest-tweet-time-and-date").text(moment(latestTweet.created_at).fromNow());
+
+        for (var i=0; i<userTweets.length-1; i++) {
+          tweet = userTweets[i];
+          $tweet = $('<div class="tweet">' +
+                        '<a class="tweet-user" href="#">' + '@' + tweet.user+ '</a>' +
+                        '<span>' +
+                          '<b class="tweet-time"> &nbsp;' + moment(tweet.created_at).fromNow() + '</b>' +
+                        '</span>' +
+
+                      '<div class="tweet-message">' + tweet.message + ' </div>' +
+                      '</div>');
+          $tweetSpacer = $('<div class="tweet-spacer"></div>');
+          $tweetSpacer.prependTo($(".tweet-div"));
+          $tweet.hide().prependTo($(".tweet-div")).slideDown(500);
+        };
+
+
+
       };
 
       $(document).on("click", "#update-tweets", function() {
@@ -70,10 +101,15 @@
           }
         });
 
+      $(document).on("click", ".tweet-user", function() {
+        var clickedUser = this.text.slice(1);
+        showUser(clickedUser);
+      });
+
       $(document).ready(function() {
         showTweets();
         setInterval(function() {
-          var tweetCount = $(".tweet").length;
+
           if((streams.home.length -1) > tweetCount){
             var numberNewTweets = streams.home.length - tweetCount;
             $("#update-tweets").text(numberNewTweets + " new tweets");

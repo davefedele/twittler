@@ -33,6 +33,7 @@
     var tweet;
     var $tweet;
     var tweetCount;
+    var visitor;
 
     function showTweets(){
 
@@ -106,6 +107,16 @@
         showUser(clickedUser);
       });
 
+      $(document).on("click", ".create-new-tweet", function() {
+        var tweet = {};
+        var newTweetUser = $(this).parent().find(".new-tweet-user").val();
+        var newTweetMessage = $(this).parent().find(".new-tweet-message").val();
+        visitor = newTweetUser;
+        console.log(visitor);
+        console.log(newTweetMessage);
+        writeTweet(newTweetMessage);
+      });
+
       $(document).ready(function() {
         showTweets();
         setInterval(function() {
@@ -121,7 +132,19 @@
 
     <div class="container">
       <div class="masthead fix-top">
-        <h3 class="text-muted">Twittler</h3>
+
+        <div id="navbar" class="navbar-collapse collapse">
+          <h3 class="text-muted">Twittler</h3>
+          <form class="navbar-form navbar-right" role="form">
+            <div class="form-group">
+              <input type="text" placeholder="username" class="form-control new-tweet-user">
+            </div>
+            <div class="form-group">
+              <input type="text" placeholder="message" class="form-control new-tweet-message">
+            </div>
+            <button type="submit" class="btn btn-success create-new-tweet">Tweet it!</button>
+          </form>
+        </div><!--/.navbar-collapse -->
         <div role="navigation">
           <ul class="nav nav-justified">
             <li><a href="#">What</a></li>

@@ -111,10 +111,14 @@
         var tweet = {};
         var newTweetUser = $(this).parent().find(".new-tweet-user").val();
         var newTweetMessage = $(this).parent().find(".new-tweet-message").val();
-        visitor = newTweetUser;
-        console.log(visitor);
-        console.log(newTweetMessage);
-        writeTweet(newTweetMessage);
+        tweet.user = newTweetUser;
+        tweet.message = newTweetMessage;
+        tweet.created_at = new Date();
+        if (!streams.users[tweet.user]) {
+          streams.users[tweet.user] = [];
+        }
+        streams.users[tweet.user].push(tweet);
+        streams.home.push(tweet);
       });
 
       $(document).ready(function() {
